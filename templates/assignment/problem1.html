@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static "style.css" %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+{#    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>#}
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>#}
+{#    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>#}
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+
+    <script src="{% static "script.js" %}"></script>
+
+
+</head>
+<body>
+
+
+        <div class="d-flex">
+  <div class="dropdown mr1">
+    <button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+      Offset
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
+      <a class="dropdown-item" href="#">Action</a>
+      <a class="dropdown-item" href="#">Another action</a>
+      <a class="dropdown-item" href="#">Something else here</a>
+    </div>
+  </div>
+  <div class="btn-group">
+    <button type="button" class="btn btn-secondary">Reference</button>
+    <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <span class="sr-only">Toggle Dropdown</span>
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+      <a class="dropdown-item" href="#">asd</a>
+      <a class="dropdown-item" href="#">sd</a>
+      <a class="dropdown-item" href="#">das</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="#">Separated link</a>
+    </div>
+  </div>
+</div>
+
+    <div class="row">
+            <div class="col-lg-3">
+                <h1>1. Select Format</h1>
+                <div class="jumbotron">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" onclick="sqlFunction()" type="checkbox" id="inlineCheckbox1" value="option1">
+                        <label class="form-check-label" for="inlineCheckbox1">MySQL</label>
+                    </div>
+                    <div id="sqldiv">
+                        <form >
+
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Username">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" id="exampleFormControlInput1" placeholder="Password">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="host">
+                            </div>
+
+                        </form>
+                        <div>
+                            <button type="submit" class="btn btn-success" id="info_btn">Success</button>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" onclick="myFunction()" type="checkbox" id="inlineCheckbox1" value="option1">
+                    <label class="form-check-label" for="inlineCheckbox1">CSV</label>
+                    <div id="shdiv">
+                        <form method="post" action="{% url 'assignment:upload' %}">
+                            <input type="file" name="file" >
+                            {% csrf_token %}
+                            <button type="submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <h1>2. Select Source</h1>
+                <div id="database">
+
+                </div>
+
+            </div>
+            <div class="col-lg-5">
+                <h1>Visualizer</h1>
+                <div class="row">
+                    <div style="margin-right: 20px">
+                        <div class="jumbotron" id="table1" ondrop="drop(event)" ondragover="allowDrop(event)" style="height: 50px;width: 200px">
+                            <p>Table 1</p>
+                        </div>
+                        <div class="jumbotron" id="table2" ondrop="droptable2(event)" ondragover="allowDrop(event)" style="height: 50px;width: 200px">
+                            <p>Table 2</p>
+                        </div>
+
+                    </div>
+                    <div>
+                        <div class="jumbotron" id="file" draggable="true" ondragstart="drag(event)" ondrop="dropelement1(event)" ondragover="allowDrop(event)" style="height: 50px;width: 200px">
+                            <p>File</p>
+                        </div>
+                        <div class="jumbotron" id="transform" draggable="true" ondragstart="drag(event)" ondrop="dropelement2(event)" ondragover="allowDrop(event)" style="height: 50px;width: 200px">
+                            <p>Transform</p>
+                        </div>
+                        <div class="jumbotron" id="output" ondrop="dropelement3(event)" ondragover="allowDrop(event)" style="height: 50px;width: 200px">
+                            <p>Output as MySQL</p>
+                        </div>
+                    </div>
+                </div>
+                
+
+
+    <button id="load_data" name="load_data" type="button">Run Mapping</button>
+            </div>
+    </div>
+
+
+    <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
+    </div>
+    <br>
+
+    <p id="drag1" draggable="true" ondragstart="drag(event)" width="336" height="69">{{ path }}</p>
+
+
+
+    <div id="data_table">
+
+    </div>
+</body>
+</html>

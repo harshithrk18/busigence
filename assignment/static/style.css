@@ -1,0 +1,20 @@
+#div1 {
+  width: 350px;
+  height: 70px;
+  padding: 10px;
+  border: 1px solid #aaaaaa;
+}
+
+#shdiv{
+    display: none;
+}
+#sqldiv{
+    display: none;
+}
+#data_table{
+    transition: width 0.2s;
+    transition-timing-function: ease-in;
+}
+#display_btn:{
+
+}
