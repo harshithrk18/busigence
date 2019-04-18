@@ -12,50 +12,117 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="{% static "script.js" %}"></script>
+    <style>
+        #btn{
+            height: 50px;
+            width: 50px;
+            background: deepskyblue;
+        }
 
-
+        #content{
+            height: 400px;
+            width: 0px;
+            background: #34ce57;
+            transition: width 0.2s;
+            /*position: absolute;*/
+        }
+        #table{
+            display: none;
+        }
+    </style>
+    <script>
+        function joinblock() {
+            console.log('clicked');
+          var x = document.getElementById("joinblock");
+          if (x.style.display === "block") {
+            x.style.display = "none";
+          } else {
+            x.style.display = "block";
+          }
+        }
+        function transformblock() {
+            console.log('clicked');
+          var x = document.getElementById("transformblock");
+          if (x.style.display === "block") {
+            x.style.display = "none";
+          } else {
+            x.style.display = "block";
+          }
+        }function outputblock() {
+            console.log('clicked');
+          var x = document.getElementById("outputblock");
+          if (x.style.display === "block") {
+            x.style.display = "none";
+          } else {
+            x.style.display = "block";
+          }
+        }
+        function sqlFunction() {
+          var x = document.getElementById("sqldiv");
+          var y = document.getElementById("csv_visualizer");
+          y.style.display = "none";
+          if (x.style.display === "block") {
+            x.style.display = "none";
+          } else {
+            x.style.display = "block";
+          }
+          document.getElementById("sqlnav").className += " active";
+        }
+        function sqlvisualizer() {
+          var x = document.getElementById("sql_visualizer");
+          if (x.style.display === "block") {
+            x.style.display = "none";
+          } else {
+            x.style.display = "block";
+          }
+        }
+        function csvvisualizer() {
+          var x = document.getElementById("csv_visualizer");
+          if (x.style.display === "block") {
+            x.style.display = "none";
+          } else {
+            x.style.display = "block";
+          }
+        }
+    $(document).ready(function () {
+        $("#csvvalue").change(function(){
+          $('#csvvaluelabel').html(this.value.split("\\").pop())
+        })
+    });
+    $(document).ready(function () {
+        $("#customCheck1").click(function(){
+            $("#customCheck2").prop("checked", false);
+            document.getElementById("csvnav").className = "nav-link";
+            var x = document.getElementById("shdiv");
+            x.style.display = "none";
+            var y = document.getElementById("csvpath");
+            y.style.display = "none";
+        });
+        $('#customCheck2').click(function () {
+            $("#customCheck1").prop("checked", false)
+        })
+    });
+    $(document).ready(function () {
+        $('#csvform').submit(function (event) {
+            event.preventDefault()
+        })
+    })
+    </script>
 </head>
 <body>
-
-
-        <div class="d-flex">
-  <div class="dropdown mr1">
-    <button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-      Offset
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-      <a class="dropdown-item" href="#">Action</a>
-      <a class="dropdown-item" href="#">Another action</a>
-      <a class="dropdown-item" href="#">Something else here</a>
-    </div>
-  </div>
-  <div class="btn-group">
-    <button type="button" class="btn btn-secondary">Reference</button>
-    <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <span class="sr-only">Toggle Dropdown</span>
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-      <a class="dropdown-item" href="#">asd</a>
-      <a class="dropdown-item" href="#">sd</a>
-      <a class="dropdown-item" href="#">das</a>
-      <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="#">Separated link</a>
-    </div>
-  </div>
-</div>
 
     <div class="row">
             <div class="col-lg-3">
                 <h1>1. Select Format</h1>
-                <div class="jumbotron">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" onclick="sqlFunction()" type="checkbox" id="inlineCheckbox1" value="option1">
-                        <label class="form-check-label" for="inlineCheckbox1">MySQL</label>
-                    </div>
-                    <div id="sqldiv">
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" onclick="sqlFunction()" id="customCheck1">
+                  <label class="custom-control-label" for="customCheck1">SQL</label>
+                </div>
+
+
+                    <div id="sqldiv" class="jumbotron">
                         <form >
 
                             <div class="form-group">
@@ -70,74 +137,194 @@
 
                         </form>
                         <div>
-                            <button type="submit" class="btn btn-success" id="info_btn">Success</button>
+                            <button type="submit" class="btn btn-success" id="info_btn" onclick="sqlvisualizer()">Success</button>
                         </div>
                     </div>
 
-                </div>
 
+                <hr style="color:grey">
 
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" onclick="myFunction()" type="checkbox" id="inlineCheckbox1" value="option1">
-                    <label class="form-check-label" for="inlineCheckbox1">CSV</label>
-                    <div id="shdiv">
-                        <form method="post" action="{% url 'assignment:upload' %}">
-                            <input type="file" name="file" >
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" onclick="myFunction()" id="customCheck2">
+                  <label class="custom-control-label" for="customCheck2">CSV</label>
+
+                    <div class="custom-file" id="shdiv" style="margin-top: 10px">
+                        <form enctype="multipart/form-data" id="csvform" name="csvform" method="post" action="{% url 'assignment:upload' %}">
+                            <input type="file" name="file" class="custom-file-input" id="csvvalue">
+                            <label id="csvvaluelabel" class="custom-file-label" for="csvvalue">Choose file</label>
+{#                            <input  name="file" class="custom-file-label" id="csvvalue">#}
                             {% csrf_token %}
-                            <button type="submit">Submit</button>
+                            <input id="csvsubmit" style="margin-top: 5px" class="btn btn-success" type="submit" onclick="csvvisualizer()">
                         </form>
                     </div>
                 </div>
+{#                <div class="form-check">#}
+{#                    <input class="form-check-input"  type="checkbox" id="inlineCheckbox1" value="option1">#}
+{#                    <label class="form-check-label" for="inlineCheckbox1">CSV</label>#}
+{##}
+{#                    #}
+{#                </div>#}
             </div>
             <div class="col-lg-4">
                 <h1>2. Select Source</h1>
+                <div style="margin-left: 10px ">
+                    <div class="row">
+                        <nav class="nav nav-pills nav-justified">
+                            <li class="nav-link" id="sqlnav" style="margin-left: 10px">MySQL</li>
+                            <li class="nav-link" id="csvnav" style="margin-left: 20px">CSV</li>
+                        </nav>
+                    </div>
+                </div>
+
+
                 <div id="database">
 
+                </div>
+                <div id="csvpath" style="margin-top: 15px" draggable="true" ondragstart="drag(event)">
+{#                    <p id="drag1" draggable="true" ondragstart="drag(event)" width="336" height="69">{{ path }}</p>#}
+{#                    <p>C:\Users\Harsha\Desktop\Github\busigence\orders.csv</p>#}
                 </div>
 
             </div>
             <div class="col-lg-5">
-                <h1>Visualizer</h1>
+                <div class="row">
+                    <h1>Visualizer</h1>
+                    <button type="button" style="height: 30px;width: 50px;margin-left: 350px" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalLong">
+                    </button>
+
+                </div>
+
+                <div id="csv_visualizer" style="display: none;">
+                    <div class="jumbotron" id="file" draggable="true" ondragstart="drag(event)" ondrop="dropelement1(event)" ondragover="allowDrop(event)" style="height: 50px;width: 200px">
+                        <p>File</p>
+                    </div>
+                    <div class="jumbotron" id="csvtransform" draggable="true" ondragstart="drag(event)" ondrop="dropelement2(event)" ondragover="allowDrop(event)" style="height: 50px;width: 200px">
+                        <p>Transform</p>
+                    </div>
+{#                    <div class="jumbotron" id="transform" draggable="true" ondragstart="drag(event)" ondrop="dropelement2(event)" ondragover="allowDrop(event)" style="height: 50px;width: 200px">#}
+{#                        <p>Transform</p>#}
+{#                    </div>#}
+                    <div class="jumbotron" id="csvoutput" ondrop="dropelement3(event)" ondragover="allowDrop(event)" style="height: 50px;width: 200px">
+                        <p>Output as MySQL</p>
+                    </div>
+                    <button id="load_data" name="load_data" type="button" class="btn btn-outline-dark">Run Mapping</button>
+
+                </div>
+
+
+
+            <div id="sql_visualizer">
                 <div class="row">
                     <div style="margin-right: 20px">
                         <div class="jumbotron" id="table1" ondrop="drop(event)" ondragover="allowDrop(event)" style="height: 50px;width: 200px">
                             <p>Table 1</p>
                         </div>
-                        <div class="jumbotron" id="table2" ondrop="droptable2(event)" ondragover="allowDrop(event)" style="height: 50px;width: 200px">
+                        <div class="jumbotron" id="table2" ondrop="drop(event)" ondragover="allowDrop(event)" style="height: 50px;width: 200px">
                             <p>Table 2</p>
                         </div>
 
                     </div>
                     <div>
-                        <div class="jumbotron" id="file" draggable="true" ondragstart="drag(event)" ondrop="dropelement1(event)" ondragover="allowDrop(event)" style="height: 50px;width: 200px">
-                            <p>File</p>
+                        <div class="row">
+                            <div class="btn btn-info " style="margin-bottom: 80px;margin-right: 20px;width: 150px" onclick="joinblock()">
+                                <p>Join</p>
+                            </div>
+                            <div id="joinblock" style="padding: 10px;border: 1px solid black;border-radius: 5px;width: 160px;margin-bottom: 5px">
+                                <h6>Verify the primary key for joining</h6>
+                                <div>
+
+                                    <select id="joinlist1" class="custom-select">
+
+                                    </select>
+
+                                </div>
+                                <div>
+                                    <select id="joinlist2" class="custom-select">
+
+                                    </select>
+                                </div>
+                                <button id="joinbtn" style="margin-left: 35px" type="button" class="btn btn-secondary">Join</button>
+
+                            </div>
+
                         </div>
-                        <div class="jumbotron" id="transform" draggable="true" ondragstart="drag(event)" ondrop="dropelement2(event)" ondragover="allowDrop(event)" style="height: 50px;width: 200px">
-                            <p>Transform</p>
+                        <div class="row">
+                            <div class="btn btn-info " onclick="transformblock()" style="margin-bottom: 80px;margin-right: 20px;width: 150px">
+                                <p class="pull-left">Transform</p>
+                            </div>
+                            <div id="transformblock" style="display: none; padding: 10px;border: 1px solid black;border-radius: 5px;width: 160px;margin-bottom: 5px">
+                                <h6>Which transformation you want to apply</h6>
+                                <div>
+                                    <select id="transformlist1" class="custom-select">
+                                      <option value="volvo">Ascending</option>
+                                      <option value="saab">Descending</option>
+
+                                    </select>
+                                </div>
+                                <div>
+                                    <select id="transformlist2" class="custom-select">
+
+                                    </select>
+                                </div>
+                                <button id="transformbtn" style="margin-left: 35px" type="button" class="btn btn-secondary">Transform</button>
+
+                            </div>
+                        </div><div class="row">
+                            <div class="btn btn-info " onclick="outputblock()" style="margin-bottom: 80px;margin-right: 20px;width: 150px">
+                                <p>Output File Type</p>
+                            </div>
+                            <div id="outputblock" style="display: none; padding: 10px;border: 1px solid black;border-radius: 5px;width: 160px">
+                                <h6>Select output file type</h6>
+                                <div>
+                                    <select id="outputlist" class="custom-select">
+                                      <option value="csv">CSV</option>
+                                      <option value="mysql">MySQL</option>
+                                    </select>
+                                </div>
+
+                            </div>
                         </div>
-                        <div class="jumbotron" id="output" ondrop="dropelement3(event)" ondragover="allowDrop(event)" style="height: 50px;width: 200px">
-                            <p>Output as MySQL</p>
-                        </div>
+
                     </div>
+
                 </div>
+                <button id="table_load" class="btn btn-outline-dark" name="table_load" style="margin-left: 200px" type="button">table load</button>
+
+            </div>
+
                 
 
 
-    <button id="load_data" name="load_data" type="button">Run Mapping</button>
             </div>
     </div>
 
 
-    <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
+
+
+    <!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content bigModal" style="width:1080px;margin-left: -270px">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle" style="margin-left: 450px">Table Created</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="show_table">
+
+        </div>
+        <div id="data_table">
+
+        </div>
+      </div>
+
     </div>
-    <br>
-
-    <p id="drag1" draggable="true" ondragstart="drag(event)" width="336" height="69">{{ path }}</p>
-
-
-
-    <div id="data_table">
-
-    </div>
+  </div>
+</div>
 </body>
 </html>

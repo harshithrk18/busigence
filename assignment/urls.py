@@ -6,5 +6,7 @@ app_name = "assignment"
 urlpatterns = [
     path('upload', views.upload, name='upload'),
     path('loadfile', views.loadfile, name='loadfile'),
-    path('sql', views.sql, name='sql')
+    path('sql', views.sql, name='sql'),
+    path('sqlcd',views.sqlcd),
+    path('join',views.tablejoin)
 ]
